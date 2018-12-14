@@ -8,7 +8,7 @@ This project is developed using the following ingredients :
 
 - ButterKnife for View Injection.
 
-- Room Persistance Library
+- Room Persistence Library
 
 - Repository Pattern
 
