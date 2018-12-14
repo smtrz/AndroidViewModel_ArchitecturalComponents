@@ -12,4 +12,6 @@ This project is developed using the following ingredients :
 
 - Repository Pattern
 
+- Live Data
+
 
