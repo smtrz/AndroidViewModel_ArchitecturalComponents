@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import com.highbryds.shoppinglistforromania_mvvm.R;
 import com.highbryds.shoppinglistforromania_mvvm.Room.ShoppingItem;
 
@@ -17,18 +16,19 @@ import java.util.List;
 
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ViewHolder> {
 
-    private List<ShoppingItem> mData= new ArrayList<>();
-   // private LayoutInflater mInflater;
+    private List<ShoppingItem> mData = new ArrayList<>();
+    // private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private Context context;
 
     // data is passed into the constructor
     public ShoppingListAdapter(Context context, List<ShoppingItem> data) {
-       // this.mInflater = LayoutInflater.from(context);
+        // this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.context = context;
     }
-    public void loadItems(List<ShoppingItem> newItems ) {
+
+    public void loadItems(List<ShoppingItem> newItems) {
         mData = newItems;
     }
 
@@ -51,27 +51,14 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     // total number of rows
     @Override
     public int getItemCount() {
-        return mData.size();
-    }
+        if (mData != null) {
 
+            return mData.size();
+        } else {
 
-    // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView item_name;
-        TextView cat;
-        ViewHolder(View itemView) {
-            super(itemView);
-            item_name = itemView.findViewById(R.id.item);
-            cat = itemView.findViewById(R.id.cat);
-
-
-            itemView.setOnClickListener(this);
+            return 0;
         }
 
-        @Override
-        public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
-        }
     }
 
     // convenience method for getting data at click position
@@ -87,5 +74,25 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener {
         void onItemClick(View view, int position);
+    }
+
+    // stores and recycles views as they are scrolled off screen
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView item_name;
+        TextView cat;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            item_name = itemView.findViewById(R.id.item);
+            cat = itemView.findViewById(R.id.cat);
+
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+        }
     }
 }
